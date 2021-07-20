@@ -1,3 +1,3 @@
 # Site link
 
-The site is deployed on [Click here](https://nifty-goldwasser-1ef969.netlify.app).
+The site is deployed on [https://zsreact.netlify.app/](https://zsreact.netlify.app/).
