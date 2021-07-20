@@ -1,23 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Songitem extends Component {
-  render() {
-    const { id, label, type } = this.props.song;
+const Songitem = ({ song: { id, label, type } }) => {
+  return (
+    <div className="card text-center">
+      <h1>{label}</h1>
+      <p>Id: {id}</p>
+      <p>Type: {type}</p>
 
-    return (
-      <div className="card text-center">
-        <h1>{label}</h1>
-        <p>Id: {id}</p>
-        <p>Type: {type}</p>
-
-        <div>
-          <a href=" " className="btn btn-dark btn-sm my-1">
-            More
-          </a>
-        </div>
+      <div>
+        <a href=" " className="btn btn-dark btn-sm my-1">
+          More
+        </a>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Songitem;
