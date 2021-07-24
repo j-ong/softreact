@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Songitem from './Songitem';
+import { Spinner } from '../layout/Spinner';
+import PropTypes from 'prop-types';
 
-class Songs extends Component {
-  render() {
+const Songs = ({ songs, loading }) => {
+  if (loading) {
+    return <Spinner />;
+  } else {
     return (
       <div style={songStyle}>
         {/* Data come from props, which is connected to api */}
-        {this.props.songs.map((song) => (
+        {songs.map((song) => (
           <Songitem key={song.id} song={song} />
         ))}
       </div>
     );
   }
-}
+};
+
+Songs.propTypes = {
+  songs: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 const songStyle = {
   display: 'grid',

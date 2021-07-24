@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Songitem = ({ song: { id, label, type } }) => {
   return (
@@ -8,9 +9,9 @@ const Songitem = ({ song: { id, label, type } }) => {
       <p>Type: {type}</p>
 
       <div>
-        <a href=" " className="btn btn-dark btn-sm my-1">
+        <Link to={`/song/${id}`} className="btn btn-dark btn-sm my-1">
           More
-        </a>
+        </Link>
       </div>
     </div>
   );
