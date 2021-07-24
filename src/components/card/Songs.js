@@ -1,6 +1,6 @@
 import React from 'react';
 import Songitem from './Songitem';
-import { Spinner } from '../layout/Spinner';
+import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 
 const Songs = ({ songs, loading }) => {
