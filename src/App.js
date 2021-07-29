@@ -17,6 +17,7 @@ class App extends Component {
     songlist: [],
     song: [],
     loading: false,
+    cardSummary: [],
   };
 
   async componentDidMount() {
@@ -31,7 +32,6 @@ class App extends Component {
     }
 
     this.setState({ songlist: loopData, loading: false });
-    console.log(loopData);
   }
   //end of api to get musical work
 
@@ -43,14 +43,45 @@ class App extends Component {
 
     var data = res.data;
     var loopData = [];
+    var groups = [];
     for (var i = 0; i < data.length; i++) {
-      loopData.push(data[i]._fields[2].properties);
+      // uncomment next line to get the properties working
+      // loopData.push(data[i]._fields[2].properties);
+      //test if we can traverse upwards to get relationship
+      loopData.push(data[i]._fields);
+
+      //group by type
+      var groupName = data[i]._fields[1].type; //e.g. realization
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(data[i]._fields[2].properties);
+
+      // var groupSummary = data[i]._fields[0].properties;
     }
 
-    // loopData = Object.values(loopData);
-    // console.log(loopData);
+    //push grouped results into nodeArray based on i.e. realization
+    var nodeArray = [];
+    for (groupName in groups) {
+      if (groupName !== 'TYPE') {
+        nodeArray.push({
+          group: groupName,
+          properties: groups[groupName],
+        });
+      }
+    }
 
-    this.setState({ song: loopData, loading: false });
+    var cardSummary = data[0]._fields[0].properties;
+
+    // console.log(nodeArray);
+
+    this.setState({
+      song: nodeArray,
+      loading: false,
+      cardSummary: cardSummary,
+    });
+
+    // console.log(loopData[0][1].type);
 
     // loopData.forEach(([key, value]) => {
     //   console.log(key);
@@ -59,7 +90,7 @@ class App extends Component {
   };
 
   render() {
-    const { song, songlist, loading } = this.state;
+    const { song, songlist, loading, cardSummary } = this.state;
 
     return (
       <Router>
@@ -77,13 +108,14 @@ class App extends Component {
             />
             <Route
               exact
-              path="/song/:id"
+              path="/node/:id"
               render={(props) => (
                 <Song
                   {...props}
                   getSong={this.getSong}
                   song={song}
                   loading={loading}
+                  cardSummary={cardSummary}
                 />
               )}
             />

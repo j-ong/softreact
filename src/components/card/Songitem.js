@@ -9,7 +9,7 @@ const Songitem = ({ song: { id, label, type } }) => {
       <p>Type: {type}</p>
 
       <div>
-        <Link to={`/song/${id}`} className="btn btn-dark btn-sm my-1">
+        <Link to={`/node/${id}`} className="btn btn-dark btn-sm my-1">
           More
         </Link>
       </div>
